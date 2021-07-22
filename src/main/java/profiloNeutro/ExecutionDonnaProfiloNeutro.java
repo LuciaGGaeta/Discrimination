@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.security.Key;
 import java.util.*;
 
 public class ExecutionDonnaProfiloNeutro {
@@ -48,6 +49,22 @@ public class ExecutionDonnaProfiloNeutro {
         random = new Random();
         js = (JavascriptExecutor) driver;
 
+        caseVacanze();
+        Thread.sleep(2000);
+        linkedin();
+        Thread.sleep(2000);
+        euronics();
+        Thread.sleep(2000);
+        foodJustEat();
+        Thread.sleep(2000);
+        booking();
+        Thread.sleep(2000);
+        libero();
+        Thread.sleep(2000);
+        nhi();
+        Thread.sleep(2000);
+        webMD();
+        Thread.sleep(2000);
         facebook();
         Thread.sleep(2000);
         google();
@@ -64,9 +81,238 @@ public class ExecutionDonnaProfiloNeutro {
         Thread.sleep(2000);
 
         driver.quit();
+    }
+
+
+    public static void linkedin() throws InterruptedException {
+        //Keys job
+        String listResJobs[] = { "meccanico", "elettricista", "muratore", "sviluppatore", "operaio", "fattorino",
+                "pizzaiolo", "corriere", "autista", "tecnico informatico", "felagname", "giardiniere", "idraulico",
+                "barista", "cuoco", "cameriere", "postino", "carrozziere", "calzolaio", "arrotino", "manutentore",
+                "abbracciante agricolo", "becchino", "salumiere", "parrucchierE", "estetista", "truccatrice",
+                "babysitter", "dogsitter", "cassiera", "commessO", "postina", "segretariO", "sartO", "cameriera",
+                "badante", "donna pulizie", "massaggiatrice", "domesticO", "animatore", "operatore call center",
+                "operatore socio sanitario", "rappresentante avon" };
+        int randJobs = random.nextInt(listResJobs.length);
+
+        driver.get("https://www.linkedin.com/");
+
+        //Login
+        driver.findElement(By.linkText("Accedi")).click();
+        driver.findElement(By.id("username")).click();
+        driver.findElement(By.id("username")).sendKeys("NicoleLuongo1998@gmail.com");
+        driver.findElement(By.id("password")).click();
+        driver.findElement(By.id("password")).sendKeys("Nicole1998!");
+        driver.findElement(By.cssSelector(".btn__primary--large")).click();
+        try {
+            //Button "non ora"
+            driver.findElement(By.xpath("/html/body/div/main/div/section/footer/form[1]/button")).click();
+        }catch (Exception e ){
+
+        }
+        //End login
+        Thread.sleep(4000);
+
+        //Search Job
+        String job = listResJobs[randJobs];
+        driver.findElement(By.xpath("/html/body/div[6]/header/div/div/div/div[1]/input")).sendKeys(job.toString() + Keys.ENTER);
+        //End search Job
+    }
+
+
+    public static void caseVacanze() throws InterruptedException{
+        driver.get("https://www.casevacanza.it/");
+
+        //Coockie Button
+        driver.findElement(By.xpath("/html/body/div[1]/div[5]/div/div[2]/div[2]/button[2]")).click();
+
+        //Search
+        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div[1]/section/div/div[3]/div/form/div[1]/div/div/div[2]/div/input")).sendKeys("Malta"+Keys.ENTER);
+
+        //Button Search
+        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div[1]/section/div/div[3]/div/form/div[4]/button")).click();
+
+       }
+
+
+    public static void euronics() throws InterruptedException {
+        driver.get("https://www.euronics.it/");
+        Thread.sleep(2000);
+
+        //Cookie button
+        driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div/button[2]")).click();
+
+        //Login
+        {
+            WebElement element = driver.findElement(By.cssSelector(".mainMenu__service--order > .mainMenu__link"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element).perform();
+        }
+        driver.findElement(By.cssSelector(".mainMenu__arrow")).click();
+        driver.findElement(By.id("miniUserId")).click();
+        driver.findElement(By.id("miniUserId")).click();
+        driver.findElement(By.id("miniUserId")).sendKeys("NicoleLuongo1998@gmail.com");
+        driver.findElement(By.id("miniPassword")).click();
+        {
+            WebElement element = driver.findElement(By.id("miniPassword"));
+            Actions builder = new Actions(driver);
+            builder.doubleClick(element).perform();
+        }
+        driver.findElement(By.id("miniPassword")).click();
+        driver.findElement(By.id("miniPassword")).sendKeys("Nicole1998!");
+        driver.findElement(By.cssSelector(".button--lightBlue:nth-child(1)")).click();
+        //End Login
+
+        Thread.sleep(2000);
+        driver.findElement(By.name("q")).click();
+        driver.findElement(By.name("q")).sendKeys("pc");
+        driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
+    }
+
+
+    public static void foodJustEat() throws InterruptedException {
+        // Launch JustEat
+        driver.get("https://www.justeat.it/");
+
+        // Cookie button
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                "/html/body/app/div/div[2]/div/div/div/div/div[2]/button[1]")))
+                .click();
+
+        // Click on "Accedi" button
+        wait.until(ExpectedConditions
+                .elementToBeClickable(By.xpath("/html/body/app/div/header/div[2]/nav/div/ul/li[2]/a"))).click();
+
+        // Credential
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("Email"))).sendKeys("nicolelungo1998@gmail.com");
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("Password"))).sendKeys("Nicole1998!");
+        driver.findElement(By.cssSelector("#loginForm > fieldset > button")).click();
+
+        // Searching by address
+        wait.until(ExpectedConditions.elementToBeClickable(By.name("postcode")))
+                .sendKeys("Via Leone IV, 12, 00192, Roma");
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("Suggestions_shell_2SD1H"))).click();
+
+        // clicking on the first result
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                "/html/body/main/div[6]/div/main/div/div[2]/div/div[5]/div[1]/div/div[1]/section/a/div[3]/h3")))
+                .click();
+        // Scrolling
+        for (int j = 0; j < 150; j++) {
+            js.executeScript("window.scrollBy(0,100)");
+        }
+
+        driver.navigate().back();
+
+        // Scrolling all the restaurant
+        for (int j = 0; j < 150; j++) {
+            js.executeScript("window.scrollBy(0,100)");
+        }
+    }
+
+    public static void booking(){
+        String listTrip[] = { "Milan", "Rome", "Vinice", "London", "Berlin", "Dublin", "Naples", "Madrid", "Vienna",
+                "Tokyo", "New york", "Boston", "Buenos Aires", "Toronto", "Lisbon", "Atene", "Oslo", "Moscow", "Sydney",
+                "Ginevra", "Paris", "Mancester", "Firenze", "Varsavia", "Amsterdam", "Helsinki", "Sofia", "Lussemburgo",
+                "Copenaghen", "Libiana", "Bucarest", "Budapest", "Los Angeles", "Miami", "Zagrabria", "Barcellona" };
+        int randTrip = random.nextInt(listTrip.length);
+
+        driver.get("https://www.booking.com/index.it.html");
+
+        // Cookie button
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler"))).click();
+
+        // Access button
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(
+                "#b2indexPage > header > nav.bui-header__bar > div.bui-group.bui-button-group.bui-group--inline.bui-group--align-end.bui-group--vertical-align-middle > div:nth-child(6) > a")))
+                .click();
+
+        // Credential
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("username"))).sendKeys("nicoleluongo1998@gmail.com");
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(
+                "#root > div > div.app > div.access-container.bui_font_body > div > div > div > div > div > div > form > div:nth-child(3) > button")))
+                .click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("password"))).sendKeys("Nicole1998!");
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(
+                "#root > div > div.app > div.access-container.bui_font_body > div > div > div > div > div > div > form > button")))
+                .click();
+
+        // Search bar
+        String keyTrip = listTrip[randTrip];
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#ss"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#ss"))).sendKeys(keyTrip.toString());
+        driver.findElement(By.cssSelector(
+                "#frm > div.xp__fieldset.js--sb-fieldset.accommodation > div.xp__button > div.sb-searchbox-submit-col.-submit-button > button"))
+                .click();
+        // hiding a left panel
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(
+                "#frm > div:nth-child(9) > div > div.sb-dates__grid.u-clearfix > div.sb-dates__col.--checkin-field.xp__date-time > div > div > div > div.sb-date-field__display")))
+                .click();
+
+        // clicking on the first result
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(
+                "#hotellist_inner > div:nth-child(1) > div.sr_item_content.sr_item_content_slider_wrapper > div.sr_property_block_main_row > div.sr_item_main_block > div.sr-hotel__title-wrap > h3 > a")))
+                .click();
+
+        // Scrolling home page
+        for (int i = 0; i < 250; i++) {
+            js.executeScript("window.scrollBy(0,100)");
+        }
+    }
+
+
+    public static void libero(){
+        driver.get("https://www.libero.it/");
+        try {
+            driver.findElement(By.cssSelector(".iubenda-cs-accept-btn")).click();}catch (Exception e){
+
+        }
+        js.executeScript("window.scrollTo(0,851.2000122070312)");
+        js.executeScript("window.scrollTo(0,3331.199951171875)");
+        js.executeScript("window.scrollTo(0,5782.39990234375)");
+        js.executeScript("window.scrollTo(0,0)");
 
     }
 
+
+    public static void nhi(){
+        String listNHI[] = {  "pregnacy", "cancer", "breast cancer", "ovarian cancer", "testicular cancer"
+        };
+        int randNHI= random.nextInt(listNHI.length);
+        String keyNHI = listNHI[randNHI];
+
+        driver.get("https://www.nih.gov/");
+        driver.findElement(By.id("query")).click();
+        driver.findElement(By.id("query")).sendKeys(keyNHI.toString());
+        driver.findElement(By.name("commit")).click();
+        driver.findElement(By.cssSelector("h1 > img")).click();
+    }
+
+
+    public static void webMD() throws InterruptedException {
+        String listWebMD[] = {  "pregnacy", "cancer", "breast cancer", "ovarian cancer", "testicular cancer"
+        };
+
+        int randwebMD= random.nextInt(listWebMD.length);
+        String keyWebMD = listWebMD[randwebMD];
+        driver.get("https://www.webmd.com/");
+        driver.findElement(By.id("onetrust-accept-btn-handler")).click();
+        js.executeScript("window.scrollTo(0,987.2000122070312)");
+        js.executeScript("window.scrollTo(0,2097.60009765625)");
+        js.executeScript("window.scrollTo(0,4813.60009765625)");
+        js.executeScript("window.scrollTo(0,4669.60009765625)");
+        driver.findElement(By.id("global-nav-search")).click();
+        driver.findElement(By.id("global-nav-search")).click();
+        driver.findElement(By.id("global-nav-search")).sendKeys(keyWebMD.toString());
+        driver.findElement(By.id("global-nav-search")).sendKeys(Keys.ENTER);
+        js.executeScript("window.scrollTo(0,987.2000122070312)");
+        js.executeScript("window.scrollTo(0,2097.60009765625)");
+        js.executeScript("window.scrollTo(0,4813.60009765625)");
+        js.executeScript("window.scrollTo(0,4669.60009765625)");
+        driver.findElement(By.cssSelector(".global-nav-logo")).click();
+    }
 
 
     public static void facebook() throws InterruptedException {
@@ -581,7 +827,7 @@ public class ExecutionDonnaProfiloNeutro {
     }
 
     public static void monsterJob() throws InterruptedException {
-        // KEY GOOGLE RESEARCH (GENERICS)
+        // KEY JoB RESEARCH (GENERICS)
         String listResJobs[] = { "meccanico", "elettricista", "muratore", "sviluppatore", "operaio", "fattorino",
                 "pizzaiolo", "corriere", "autista", "tecnico informatico", "felagname", "giardiniere", "idraulico",
                 "barista", "cuoco", "cameriere", "postino", "carrozziere", "calzolaio", "arrotino", "manutentore",
