@@ -6,8 +6,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.security.Key;
 import java.util.*;
 
 public class ExecutionDonnaProfiloNeutro {
@@ -49,6 +47,10 @@ public class ExecutionDonnaProfiloNeutro {
         random = new Random();
         js = (JavascriptExecutor) driver;
 
+        nhi();
+        Thread.sleep(2000);
+        webMD();
+        Thread.sleep(2000);
         caseVacanze();
         Thread.sleep(2000);
         linkedin();
@@ -60,10 +62,6 @@ public class ExecutionDonnaProfiloNeutro {
         booking();
         Thread.sleep(2000);
         libero();
-        Thread.sleep(2000);
-        nhi();
-        Thread.sleep(2000);
-        webMD();
         Thread.sleep(2000);
         facebook();
         Thread.sleep(2000);
@@ -96,38 +94,48 @@ public class ExecutionDonnaProfiloNeutro {
         int randJobs = random.nextInt(listResJobs.length);
 
         driver.get("https://www.linkedin.com/");
-
-        //Login
-        driver.findElement(By.linkText("Accedi")).click();
-        driver.findElement(By.id("username")).click();
-        driver.findElement(By.id("username")).sendKeys("NicoleLuongo1998@gmail.com");
-        driver.findElement(By.id("password")).click();
-        driver.findElement(By.id("password")).sendKeys("Nicole1998!");
-        driver.findElement(By.cssSelector(".btn__primary--large")).click();
         try {
-            //Button "non ora"
-            driver.findElement(By.xpath("/html/body/div/main/div/section/footer/form[1]/button")).click();
+            //Login
+            driver.findElement(By.linkText("Accedi")).click();
+            driver.findElement(By.id("username")).click();
+            driver.findElement(By.id("username")).sendKeys("NicoleLuongo1998@gmail.com");
+            driver.findElement(By.id("password")).click();
+            driver.findElement(By.id("password")).sendKeys("Nicole1998!");
+            driver.findElement(By.cssSelector(".btn__primary--large")).click();
+            try {
+                //Button "non ora"
+                driver.findElement(By.xpath("/html/body/div/main/div/section/footer/form[1]/button")).click();
+            } catch (Exception e) {
+
+            }
+            //End login
+            Thread.sleep(5000);
+
+            //Search Job
+            String job = listResJobs[randJobs];
+            driver.findElement(By.xpath("/html/body/div[7]/header/div/div/div/div[1]/input")).sendKeys(job.toString() + Keys.ENTER);
+            //End search Job
         }catch (Exception e ){
 
         }
-        //End login
-        Thread.sleep(4000);
-
-        //Search Job
-        String job = listResJobs[randJobs];
-        driver.findElement(By.xpath("/html/body/div[6]/header/div/div/div/div[1]/input")).sendKeys(job.toString() + Keys.ENTER);
-        //End search Job
     }
 
 
     public static void caseVacanze() throws InterruptedException{
+        String listTrip[] = { "Milan", "Rome", "Vinice", "London", "Berlin", "Dublin", "Naples", "Madrid", "Vienna",
+                "Tokyo", "New york", "Boston", "Buenos Aires", "Toronto", "Lisbon", "Atene", "Oslo", "Moscow", "Sydney",
+                "Ginevra", "Paris", "Mancester", "Firenze", "Varsavia", "Amsterdam", "Helsinki", "Sofia", "Lussemburgo",
+                "Copenaghen", "Libiana", "Bucarest", "Budapest", "Los Angeles", "Miami", "Zagrabria", "Barcellona" };
+        int randTrip = random.nextInt(listTrip.length);
+
         driver.get("https://www.casevacanza.it/");
 
         //Coockie Button
         driver.findElement(By.xpath("/html/body/div[1]/div[5]/div/div[2]/div[2]/button[2]")).click();
 
         //Search
-        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div[1]/section/div/div[3]/div/form/div[1]/div/div/div[2]/div/input")).sendKeys("Malta"+Keys.ENTER);
+        String city = listTrip[randTrip];
+        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div[1]/section/div/div[3]/div/form/div[1]/div/div/div[2]/div/input")).sendKeys(city.toString() + Keys.ENTER);
 
         //Button Search
         driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div[1]/section/div/div[3]/div/form/div[4]/button")).click();
@@ -137,7 +145,13 @@ public class ExecutionDonnaProfiloNeutro {
 
     public static void euronics() throws InterruptedException {
         driver.get("https://www.euronics.it/");
-        Thread.sleep(2000);
+
+        String listElettrodomestici[] = { "Epilatore", "Rasoio", "Lavatrice", "Pc", "Pentole", "Smartwatch", "Cellulare", "Frigorifero", "lavastoviglie",
+                "asciugatrice", "videogame", "nintendo switch", "tv"};
+        int randEl = random.nextInt(listElettrodomestici.length);
+        String elettrodomestico = listElettrodomestici[randEl];
+
+        Thread.sleep(4000);
 
         //Cookie button
         driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div/button[2]")).click();
@@ -165,49 +179,55 @@ public class ExecutionDonnaProfiloNeutro {
 
         Thread.sleep(2000);
         driver.findElement(By.name("q")).click();
-        driver.findElement(By.name("q")).sendKeys("pc");
+        driver.findElement(By.name("q")).sendKeys(elettrodomestico.toString());
         driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
     }
 
 
     public static void foodJustEat() throws InterruptedException {
-        // Launch JustEat
-        driver.get("https://www.justeat.it/");
+        try {
+            // Launch JustEat
+            driver.get("https://www.justeat.it/");
 
-        // Cookie button
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-                "/html/body/app/div/div[2]/div/div/div/div/div[2]/button[1]")))
-                .click();
+            // Cookie button
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                    "/html/body/app/div/div[2]/div/div/div/div/div[2]/button[1]")))
+                    .click();
 
-        // Click on "Accedi" button
-        wait.until(ExpectedConditions
-                .elementToBeClickable(By.xpath("/html/body/app/div/header/div[2]/nav/div/ul/li[2]/a"))).click();
+            // Click on "Accedi" button
+            wait.until(ExpectedConditions
+                    .elementToBeClickable(By.xpath("/html/body/app/div/header/div[2]/nav/div/ul/li[2]/a"))).click();
 
-        // Credential
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("Email"))).sendKeys("nicolelungo1998@gmail.com");
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("Password"))).sendKeys("Nicole1998!");
-        driver.findElement(By.cssSelector("#loginForm > fieldset > button")).click();
+            // Credential
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("Email"))).sendKeys("nicoleluongo1998@gmail.com");
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("Password"))).sendKeys("Nicole1998!");
+            driver.findElement(By.cssSelector("#loginForm > fieldset > button")).click();
 
-        // Searching by address
-        wait.until(ExpectedConditions.elementToBeClickable(By.name("postcode")))
-                .sendKeys("Via Leone IV, 12, 00192, Roma");
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("Suggestions_shell_2SD1H"))).click();
+            // Searching by address
+            wait.until(ExpectedConditions.elementToBeClickable(By.name("postcode")))
+                    .sendKeys("Via Leone IV, 12, 00192, Roma");
+            wait.until(ExpectedConditions.elementToBeClickable(By.className("Suggestions_shell_2SD1H"))).click();
 
-        // clicking on the first result
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-                "/html/body/main/div[6]/div/main/div/div[2]/div/div[5]/div[1]/div/div[1]/section/a/div[3]/h3")))
-                .click();
-        // Scrolling
-        for (int j = 0; j < 150; j++) {
-            js.executeScript("window.scrollBy(0,100)");
+            // clicking on the first result
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                    "/html/body/main/div[6]/div/main/div/div[2]/div/div[5]/div[1]/div/div[1]/section/a/div[3]/h3")))
+                    .click();
+            // Scrolling
+            for (int j = 0; j < 150; j++) {
+                js.executeScript("window.scrollBy(0,100)");
+            }
+
+            driver.navigate().back();
+
+            // Scrolling all the restaurant
+            for (int j = 0; j < 150; j++) {
+                js.executeScript("window.scrollBy(0,100)");
+            }
+        }catch (Exception e){
+
         }
 
-        driver.navigate().back();
 
-        // Scrolling all the restaurant
-        for (int j = 0; j < 150; j++) {
-            js.executeScript("window.scrollBy(0,100)");
-        }
     }
 
     public static void booking(){
@@ -277,13 +297,13 @@ public class ExecutionDonnaProfiloNeutro {
     }
 
 
-    public static void nhi(){
-        String listNHI[] = {  "pregnacy", "cancer", "breast cancer", "ovarian cancer", "testicular cancer"
-        };
+    public static void nhi() throws InterruptedException {
+        String listNHI[] = {  "pregnacy", "cancer", "breast cancer", "ovarian cancer", "testicular cancer", "covid"};
         int randNHI= random.nextInt(listNHI.length);
         String keyNHI = listNHI[randNHI];
 
         driver.get("https://www.nih.gov/");
+        Thread.sleep(2000);
         driver.findElement(By.id("query")).click();
         driver.findElement(By.id("query")).sendKeys(keyNHI.toString());
         driver.findElement(By.name("commit")).click();
@@ -292,12 +312,13 @@ public class ExecutionDonnaProfiloNeutro {
 
 
     public static void webMD() throws InterruptedException {
-        String listWebMD[] = {  "pregnacy", "cancer", "breast cancer", "ovarian cancer", "testicular cancer"
-        };
+        String listWebMD[] = {  "pregnacy", "cancer", "breast cancer", "ovarian cancer", "testicular cancer", "covid"};
 
         int randwebMD= random.nextInt(listWebMD.length);
         String keyWebMD = listWebMD[randwebMD];
         driver.get("https://www.webmd.com/");
+
+        try{
         driver.findElement(By.id("onetrust-accept-btn-handler")).click();
         js.executeScript("window.scrollTo(0,987.2000122070312)");
         js.executeScript("window.scrollTo(0,2097.60009765625)");
@@ -310,8 +331,10 @@ public class ExecutionDonnaProfiloNeutro {
         js.executeScript("window.scrollTo(0,987.2000122070312)");
         js.executeScript("window.scrollTo(0,2097.60009765625)");
         js.executeScript("window.scrollTo(0,4813.60009765625)");
-        js.executeScript("window.scrollTo(0,4669.60009765625)");
-        driver.findElement(By.cssSelector(".global-nav-logo")).click();
+        js.executeScript("window.scrollTo(0,4669.60009765625)");}catch (Exception e){
+
+        }
+
     }
 
 
@@ -330,127 +353,131 @@ public class ExecutionDonnaProfiloNeutro {
                 "Python Coding", "funny video", "tiktok", "lercio", "gameplay", "Valentino Rossi", "Milan", "Roma",
                 "Lazio", "Formula 1", "Lewis Hamilton", "Sebastian Vettel", "funny video", "meme", "tiktok"};
         int randFB = random.nextInt(listResFB.length);
-
-        // Launch Facebook
-
-        driver.get("https://www.facebook.com/");
         try {
-            // Cookie button
-            driver.findElement(By.xpath("/html/body/div[3]/div[2]/div/div/div/div/div[3]/button[2]")).click();}catch (Exception e){
+            // Launch Facebook
 
-        }
+            driver.get("https://www.facebook.com/");
+            try {
+                // Cookie button
+                driver.findElement(By.xpath("/html/body/div[3]/div[2]/div/div/div/div/div[3]/button[2]")).click();
+            } catch (Exception e) {
 
-
-        // LOGIN CREDENTIALS FACEBOOK
-        Thread.sleep(2000);
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("email"))).sendKeys("NicoleLuongo1998@gmail.com"); // Email
-        // section
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("pass"))).sendKeys("Nicole1998!"); // Password sections
-
-        // Login button
-        driver.findElement(By.name("login")).click();
-        Thread.sleep(2000);
-
-        //Like
-        try {
-            driver.findElement(By.cssSelector(".pfnyh3mw > .pq6dq46d > .hu5pjgll")).click();
-        }catch (Exception e){
-
-        }
-
-        Thread.sleep(5000);
-
-        driver.get("https://www.facebook.com/marketplace/?ref=bookmark");
-        driver.navigate().back();
-
-        // Research on the Facebook's bar with a random string
-        String keyFB = new String();
-        keyFB = listResFB[randFB];
-        Thread.sleep(2000);
-
-        wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/label/input"))).click();
-        driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/label/input"))
-                .sendKeys(keyFB.toString());
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/label/input"))
-                .sendKeys(Keys.ENTER);
-
-        // wait 4 sec
-        Thread.sleep(4000);
-
-        // scrolling
-        for (int i = 0; i < 300; i++) {
-            js.executeScript("window.scrollBy(0,100)");
-
-        }
-        // wait 4 sec
-        Thread.sleep(2000);
-
-        // Back to home page
-        driver.navigate().back();
-
-        Thread.sleep(3000);
+            }
 
 
-        // POSTING SOMETHING
-        WebElement post = driver.findElement(By.xpath(
-                "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div[1]/div/div[2]/div/div/div[3]/div/div[2]/div/div/div/div[1]/div"));
-        post.click();
+            // LOGIN CREDENTIALS FACEBOOK
+            Thread.sleep(2000);
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("email"))).sendKeys("NicoleLuongo1998@gmail.com"); // Email
+            // section
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("pass"))).sendKeys("Nicole1998!"); // Password sections
 
-        // "stato d'animo" button
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-                "/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[1]/div[2]/div/div[5]/div/span/div/div/div[1]/div/div")))
-                .click();
-        Thread.sleep(2000);
+            // Login button
+            driver.findElement(By.name("login")).click();
+            Thread.sleep(2000);
 
-        try {
-            // Chosing a state of mood (Stato d'animo)
-            int randStati = random.nextInt(driver.findElements(By.tagName("li")).size());
-            driver.findElements(By.tagName("li")).get(randStati).click();
+            //Like
+            try {
+                driver.findElement(By.cssSelector(".pfnyh3mw > .pq6dq46d > .hu5pjgll")).click();
+            } catch (Exception e) {
 
+            }
 
-            // "Publica" button
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-                    "/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[2]/div/div")))
-                    .click();
+            Thread.sleep(5000);
 
-        } catch (Exception e) {
+            driver.get("https://www.facebook.com/marketplace/?ref=bookmark");
             driver.navigate().back();
-        }
 
-        Thread.sleep(3000);
+            // Research on the Facebook's bar with a random string
+            String keyFB = new String();
+            keyFB = listResFB[randFB];
+            Thread.sleep(2000);
 
-        // END POSTING SOMETHING
+            wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/label/input"))).click();
+            driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/label/input"))
+                    .sendKeys(keyFB.toString());
+            Thread.sleep(3000);
+            driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/label/input"))
+                    .sendKeys(Keys.ENTER);
 
-        // Click on the first story & look for 10 seconds
-        try {
+            // wait 4 sec
+            Thread.sleep(4000);
+
+            // scrolling
+            for (int i = 0; i < 300; i++) {
+                js.executeScript("window.scrollBy(0,100)");
+
+            }
+            // wait 4 sec
+            Thread.sleep(2000);
+
+            // Back to home page
+            driver.navigate().back();
+
+            Thread.sleep(3000);
+
+
+            // POSTING SOMETHING
+            WebElement post = driver.findElement(By.xpath(
+                    "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div[1]/div/div[2]/div/div/div[3]/div/div[2]/div/div/div/div[1]/div"));
+            post.click();
+
+            // "stato d'animo" button
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-                    "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div[1]/div/div[2]/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div")))
+                    "/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[1]/div[2]/div/div[5]/div/span/div/div/div[1]/div/div")))
                     .click();
-        } catch (Exception e) {
-        }
+            Thread.sleep(2000);
 
-        Thread.sleep(10000);
+            try {
+                // Chosing a state of mood (Stato d'animo)
+                int randStati = random.nextInt(driver.findElements(By.tagName("li")).size());
+                driver.findElements(By.tagName("li")).get(randStati).click();
 
-        // Back to home page
-        driver.navigate().back();
 
-        // scrolling home
-        for (int i = 0; i < 350; i++) {
-            js.executeScript("window.scrollBy(0,100)");
+                // "Publica" button
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                        "/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[2]/div/div")))
+                        .click();
 
-        }
+            } catch (Exception e) {
+                driver.navigate().back();
+            }
 
-        //Logout
-        try {
-            driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[1]/span/div/div[1]")).click();
-            driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div[3]/div/div[4]/div/div[1]/div[2]/div/div/div/div/span")).click();
+            Thread.sleep(3000);
+
+            // END POSTING SOMETHING
+
+            // Click on the first story & look for 10 seconds
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                        "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div[1]/div/div[2]/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div")))
+                        .click();
+            } catch (Exception e) {
+            }
+
+            Thread.sleep(10000);
+
+            // Back to home page
+            driver.navigate().back();
+
+            // scrolling home
+            for (int i = 0; i < 350; i++) {
+                js.executeScript("window.scrollBy(0,100)");
+
+            }
+
+            //Logout
+            try {
+                driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[1]/span/div/div[1]")).click();
+                driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div[3]/div/div[4]/div/div[1]/div[2]/div/div/div/div/span")).click();
+            } catch (Exception e) {
+
+            }
+
+            //End Logout
         }catch (Exception e){
 
         }
-
-        //End Logout
     }
 
 
@@ -535,7 +562,7 @@ public class ExecutionDonnaProfiloNeutro {
                 "Ferrari", "Alfa Romeo", "Diletta Leotta", "Ferrari", "coding", "meme", "tiktok", "funny clip",
                 "funny video"};
         int randInsta = random.nextInt(listResInsta.length);
-
+        try{
         // Launch Instagram
         driver.navigate().to("https://instagram.com/");
 
@@ -674,6 +701,8 @@ public class ExecutionDonnaProfiloNeutro {
         driver.findElement(By.xpath("/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div")).click();}
         catch (Exception e ){
 
+        }}catch (Exception e ){
+
         }
     }
 
@@ -697,70 +726,75 @@ public class ExecutionDonnaProfiloNeutro {
         int randAmazon = random.nextInt(listResAmazon.length);
 
         driver.get("https://www.amazon.it/");
-
-        // Cookie button
-        //wait.until(ExpectedConditions.elementToBeClickable(By.id("sp-cc-accept"))).click();
-
-        // "Accedi" button
-        driver.findElement(By.id("nav-link-accountList")).click();
-
-        // Creditial
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("ap_email"))).sendKeys("NicoleLuongo1998@gmail.com");
-        driver.findElement(By.id("continue")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("ap_password"))).sendKeys("Nicole1998!");
-        driver.findElement(By.id("signInSubmit")).click();
-
-
-
-
-        String keyAmazon = listResAmazon[randAmazon];
-        // Search bar
-        driver.findElement(By.id("twotabsearchtextbox")).click();
-        driver.findElement(By.id("twotabsearchtextbox")).sendKeys(keyAmazon.toString() + Keys.ENTER);
-
-        // finding a product & add it in the cart
         try {
-            driver.findElement(By.xpath(
-                    "/html/body/div[1]/div[2]/div[1]/div/div[1]/div/span[3]/div[2]/div[2]/div/span/div/div/div/div/span/a/div/img"))
-                    .click();
-            // Add to cart the product
-            driver.findElement(By.name("submit.add-to-cart")).click();
-
-        } catch (Exception e) {
-            try{
-                driver.findElement(By.xpath(
-                        "/html/body/div[1]/div[2]/div[1]/div/div[1]/div/span[3]/div[2]/div[3]/div/span/div/div/div/div/span/a/div/img"))
-                        .click();
-                // Add to cart the product
-                driver.findElement(By.name("submit.add-to-cart")).click();}
-            catch (Exception ee){
-
+            // Cookie button
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By.id("sp-cc-accept"))).click();
+            } catch (Exception e) {
 
             }
-        }
-
-        Thread.sleep(3000);
-        //Aggiungi copertura
-        try {
-            driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[6]/div[4]/div[1]/div[8]/div/div[1]/div[1]/div/div/div[2]/div/div/div[2]/div/div[3]/div/span[2]/span/input")).click();
-        }
-        catch (Exception eee){
-
-        }
-        // Back to home
-
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("nav-logo-sprites"))).click();
 
 
-        //Scrolling home page
-        for (int i = 0; i < 150; i++) {
-            js.executeScript("window.scrollBy(0,100)");
-        }
+            // "Accedi" button
+            driver.findElement(By.id("nav-link-accountList")).click();
 
-        Actions builder = new Actions(driver);
-        try {
-            builder.moveToElement(driver.findElement(By.id("nav-link-accountList"))).perform();
-            driver.findElement(By.xpath("/html/body/div[1]/header/div/div[3]/div[2]/div[2]/div/div[2]/a[18]/span")).click();
+            // Creditial
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("ap_email"))).sendKeys("NicoleLuongo1998@gmail.com");
+            driver.findElement(By.id("continue")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("ap_password"))).sendKeys("Nicole1998!");
+            driver.findElement(By.id("signInSubmit")).click();
+
+
+            String keyAmazon = listResAmazon[randAmazon];
+            // Search bar
+            driver.findElement(By.id("twotabsearchtextbox")).click();
+            driver.findElement(By.id("twotabsearchtextbox")).sendKeys(keyAmazon.toString() + Keys.ENTER);
+
+            // finding a product & add it in the cart
+            try {
+                driver.findElement(By.xpath(
+                        "/html/body/div[1]/div[2]/div[1]/div/div[1]/div/span[3]/div[2]/div[2]/div/span/div/div/div/div/span/a/div/img"))
+                        .click();
+                // Add to cart the product
+                driver.findElement(By.name("submit.add-to-cart")).click();
+
+            } catch (Exception e) {
+                try {
+                    driver.findElement(By.xpath(
+                            "/html/body/div[1]/div[2]/div[1]/div/div[1]/div/span[3]/div[2]/div[3]/div/span/div/div/div/div/span/a/div/img"))
+                            .click();
+                    // Add to cart the product
+                    driver.findElement(By.name("submit.add-to-cart")).click();
+                } catch (Exception ee) {
+
+
+                }
+            }
+
+            Thread.sleep(3000);
+            //Aggiungi copertura
+            try {
+                driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[6]/div[4]/div[1]/div[8]/div/div[1]/div[1]/div/div/div[2]/div/div/div[2]/div/div[3]/div/span[2]/span/input")).click();
+            } catch (Exception eee) {
+
+            }
+            // Back to home
+
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("nav-logo-sprites"))).click();
+
+
+            //Scrolling home page
+            for (int i = 0; i < 150; i++) {
+                js.executeScript("window.scrollBy(0,100)");
+            }
+
+            Actions builder = new Actions(driver);
+            try {
+                builder.moveToElement(driver.findElement(By.id("nav-link-accountList"))).perform();
+                driver.findElement(By.xpath("/html/body/div[1]/header/div/div[3]/div[2]/div[2]/div/div[2]/a[18]/span")).click();
+            } catch (Exception e) {
+
+            }
         }catch (Exception e){
 
         }
