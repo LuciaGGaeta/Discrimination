@@ -58,6 +58,8 @@ public class ExecutionDonnaStereotipoDonna {
 
 			nhi();
 			Thread.sleep(2000);
+			webMD();
+			Thread.sleep(2000);
 			caseVacanze();
 			Thread.sleep(2000);
 			linkedin();
@@ -69,8 +71,6 @@ public class ExecutionDonnaStereotipoDonna {
 			booking();
 			Thread.sleep(2000);
 			libero();
-			Thread.sleep(2000);
-			webMD();
 			Thread.sleep(2000);
 			facebook();
 			Thread.sleep(2000);

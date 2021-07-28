@@ -41,7 +41,7 @@ public class ExecutionPNDStereotipoUomo {
         options.addArguments("--disable-web-security");
         options.addArguments("disable-infobars");
         options.addArguments("--disable-extensions");
-        // options.addArguments("--user-data-dir=/tmp/chrome-sesh");
+        options.addArguments("--user-data-dir=/tmp/chrome-sesh");
         options.addArguments("--allow-running-insecure-content");
         options.setExperimentalOption("useAutomationExtension", false);
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
@@ -57,7 +57,10 @@ public class ExecutionPNDStereotipoUomo {
         random = new Random();
         js = (JavascriptExecutor) driver;
 
-
+        nhi();
+        Thread.sleep(2000);
+        webMD();
+        Thread.sleep(2000);
         caseVacanze();
         Thread.sleep(2000);
         linkedin();
@@ -69,10 +72,6 @@ public class ExecutionPNDStereotipoUomo {
         booking();
         Thread.sleep(2000);
         libero();
-        Thread.sleep(2000);
-        nhi();
-        Thread.sleep(2000);
-        webMD();
         Thread.sleep(2000);
         facebook();
         Thread.sleep(2000);
@@ -142,7 +141,8 @@ public class ExecutionPNDStereotipoUomo {
         driver.get("https://www.casevacanza.it/");
 
         //Coockie Button
-        driver.findElement(By.xpath("/html/body/div[1]/div[5]/div/div[2]/div[2]/button[2]")).click();
+        try{
+            driver.findElement(By.xpath("/html/body/div[1]/div[5]/div/div[2]/div[2]/button[2]")).click();}catch (Exception e){}
 
         //Search
         String city = listTrip[randTrip];
