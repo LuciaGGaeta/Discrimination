@@ -48,6 +48,8 @@ public class ExecutionUomoProfiloNeutro {
         random = new Random();
         js = (JavascriptExecutor) driver;
 
+        google();
+        Thread.sleep(2000);
         nhi();
         Thread.sleep(2000);
         webMD();
@@ -68,8 +70,7 @@ public class ExecutionUomoProfiloNeutro {
 
         facebook();
         Thread.sleep(2000);
-        google();
-        Thread.sleep(2000);
+
         instagram();
         Thread.sleep(2000);
         amazon();

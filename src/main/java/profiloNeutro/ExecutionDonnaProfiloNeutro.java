@@ -46,7 +46,8 @@ public class ExecutionDonnaProfiloNeutro {
 
         random = new Random();
         js = (JavascriptExecutor) driver;
-
+        google();
+        Thread.sleep(2000);
         nhi();
         Thread.sleep(2000);
         webMD();
@@ -65,8 +66,7 @@ public class ExecutionDonnaProfiloNeutro {
         Thread.sleep(2000);
         facebook();
         Thread.sleep(2000);
-        google();
-        Thread.sleep(2000);
+
         instagram();
         Thread.sleep(2000);
         amazon();
@@ -154,7 +154,9 @@ public class ExecutionDonnaProfiloNeutro {
         Thread.sleep(4000);
 
         //Cookie button
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div/button[2]")).click();
+        try {
+            driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div/button[2]")).click();
+        }catch (Exception e){}
 
         //Login
         {
@@ -523,7 +525,7 @@ public class ExecutionDonnaProfiloNeutro {
         driver.get("https://google.com");
 
         // Cookie button
-        driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[3]/span/div/div/div[3]/button[2]/div")).click();
+        driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[3]/span/div/div/div/div[3]/button[2]")).click();
 
         Thread.sleep(2000);
 

@@ -53,7 +53,12 @@ public class ExecutionUomoStereotipoDonna {
         random = new Random();
         js = (JavascriptExecutor) driver;
 
-
+        google();
+        Thread.sleep(2000);
+        nhi();
+        Thread.sleep(2000);
+        webMD();
+        Thread.sleep(2000);
         caseVacanze();
         Thread.sleep(2000);
         linkedin();
@@ -66,13 +71,7 @@ public class ExecutionUomoStereotipoDonna {
         Thread.sleep(2000);
         libero();
         Thread.sleep(2000);
-       // nhi();
-        Thread.sleep(2000);
-        //webMD();
-        Thread.sleep(2000);
         facebook();
-        Thread.sleep(2000);
-        google();
         Thread.sleep(2000);
         instagram();
         Thread.sleep(2000);

@@ -57,6 +57,8 @@ public class ExecutionPNDStereotipoUomo {
         random = new Random();
         js = (JavascriptExecutor) driver;
 
+        google();
+        Thread.sleep(2000);
         nhi();
         Thread.sleep(2000);
         webMD();
@@ -75,8 +77,7 @@ public class ExecutionPNDStereotipoUomo {
         Thread.sleep(2000);
         facebook();
         Thread.sleep(2000);
-        google();
-        Thread.sleep(2000);
+
         instagram();
         Thread.sleep(2000);
         amazon();
@@ -526,8 +527,9 @@ public class ExecutionPNDStereotipoUomo {
         driver.get("https://google.com");
 
         // Cookie button
-        driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[3]/span/div/div/div[3]/button[2]/div")).click();
-
+        try {
+            driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[3]/span/div/div/div[3]/button[2]/div")).click();
+        }catch (Exception e){}
         Thread.sleep(2000);
 
 
